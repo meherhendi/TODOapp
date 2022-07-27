@@ -1,0 +1,64 @@
+<div class="main">
+  <h1>My To Do List</h1>
+
+  <label for="addItemInput">What would you like to do today?</label>
+  <form (ngSubmit)="addItem(todoForm.value.name, todoForm.value.description, todoForm.value.priority, null  )" #todoForm="ngForm">
+  <!-- <form (ngSubmit)="seeoutput(todoForm.value)" #todoForm="ngForm"> -->
+    <input
+    type = "text" 
+    name = "name" 
+    placeholder = "name" 
+    class="lg-text-input"
+    ngModel/>
+
+    <input
+    type = "text" 
+    name = "description" 
+    placeholder = "Description" 
+    class="lg-text-input"
+    ngModel/>
+
+    <input
+    type = "number" 
+    name = "priority" 
+    placeholder = "Priority" 
+    class="lg-text-input"
+    ngModel/>
+
+ 
+
+  <button type="submit" class="btn-primary">Add</button>
+</form>
+  <!-- (click)="addItem(newItem.value)" -->
+  <div class="btn-wrapper">
+    <button
+      class="btn btn-menu"
+      [class.active]="filter == 'all'"
+      (click)="filter = 'all'">
+      All
+    </button>
+
+    <button
+      class="btn btn-menu"
+      [class.active]="filter == 'active'"
+      (click)="filter = 'active'">
+      In progress
+    </button>
+
+    <button
+      class="btn btn-menu"
+      [class.active]="filter == 'done'"
+      (click)="filter = 'done'">
+      Completed
+    </button>
+  </div>
+
+  <h2>{{items.length}} <span *ngIf="items.length === 1; else elseBlock">item</span>
+  <ng-template #elseBlock>items</ng-template></h2>
+
+  <ul>
+    <li *ngFor="let item of items">
+      <app-item (remove)="remove(item)" [item]="item"></app-item>
+    </li>
+  </ul>
+</div>

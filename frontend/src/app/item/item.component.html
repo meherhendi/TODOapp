@@ -1,0 +1,28 @@
+
+<div class="item">
+
+  <input [id]="item.name" type="checkbox" (change)="item.done = !item.done" [checked]="item.done" />
+  <label [for]="item.name">name: {{item.name}}</label>
+  <label [for]="item.description">&nbsp; description: {{item.description}}</label>
+  <label [for]="item.priority">&nbsp; priority: {{item.priority}}</label>
+  <label [for]="item.completionDate">&nbsp; completion date:{{item.completionDate}}</label>
+
+  <div class="btn-wrapper" *ngIf="!editable">
+    <button class="btn" (click)="editable = !editable">Edit</button>
+    <button class="btn btn-warn" (click)="remove.emit()">Delete</button>
+  </div>
+
+  <!-- This section shows only if user clicks Edit button -->
+  <div *ngIf="editable">
+    <input class="sm-text-input" placeholder="edit item" [value]="item.name" #editedName>
+    <input class="sm-text-input" placeholder="edit item" [value]="item.description" #editedDescription>
+    <input class="sm-text-input" placeholder="edit item" [value]="item.priority" #editedPriority>
+
+    <div class="btn-wrapper">
+      <button class="btn" (click)="editable = !editable">Cancel</button>
+      <button class="btn btn-save" (click)="saveItem(editedName.value, editedDescription.value, editedPriority.value)">Save</button>
+    </div>
+
+	</div>
+
+</div>
